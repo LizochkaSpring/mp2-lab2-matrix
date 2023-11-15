@@ -7,13 +7,33 @@
 #include <iostream>
 #include "tmatrix.h"
 //---------------------------------------------------------------------------
+//посчитать по времени и сравнить их операции при разном размере.
+
+TDynamicVector<int> rand_vector(TDynamicVector<int> a, int n) {
+    for (int i = 0; i < n; i++) {
+        a[i] = 0 + rand() % 11;
+    }
+    return a;
+}
+TDynamicMatrix<int> rand_matrix(TDynamicMatrix<int> b, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+        {
+            b[i][j] = 0 + rand() % 12;
+        }
+    }
+    return b;
+}
+
 
 void main()
 {
-  TDynamicMatrix<int> a(5), b(5), c(5);
+  /*TDynamicMatrix<int> a(5), b(5), c(5);
   int i, j;
 
   setlocale(LC_ALL, "Russian");
+  srand(time(NULL));
+
   cout << "Тестирование класс работы с матрицами"
     << endl;
   for (i = 0; i < 5; i++)
@@ -25,6 +45,34 @@ void main()
   c = a + b;
   cout << "Matrix a = " << endl << a << endl;
   cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
+  cout << "Matrix c = a + b" << endl << c << endl;*/
+
+    setlocale(LC_ALL, "Russian");
+    int n;
+    time_t start, end;
+    cout << "Тестирование класс работы с матрицами"<< endl;
+    cout << "Введите размер матрицы: ";
+    cin >> n;
+
+    double x = 0;
+    TDynamicMatrix<int> a(n), b(n), c(n);
+    a = rand_matrix(a, n);
+    b = rand_matrix(b, n);
+    time(&start);
+    c = a + b;
+    time(&end);
+    x = (x + (double)(end - start) / CLOCKS_PER_SEC) * 1000;
+    cout << "O(n^2) - " << x << endl;
+    
+
+    x = 0;
+    TDynamicMatrix<int> aa(n), bb(n), cc(n);
+    aa = rand_matrix(a, n);
+    bb = rand_matrix(b, n);
+    time(&start);
+    cc = aa * bb;
+    time(&end);
+    x = (x + (double)(end - start) / CLOCKS_PER_SEC) * 1000;
+    cout << "O(n^3) - " << x << endl;
 }
 //---------------------------------------------------------------------------

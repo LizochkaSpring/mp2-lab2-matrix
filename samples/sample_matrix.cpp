@@ -74,5 +74,32 @@ void main()
     time(&end);
     x = (x + (double)(end - start) / CLOCKS_PER_SEC) * 1000;
     cout << "O(n^3) - " << x << endl;
+    cout << "\n";
+
+    int k;
+    cout << "Тестирование класс работы с векторами" << endl;
+    cout << "Введите размер вектора: ";
+    cin >> k;
+
+    double g = 0;
+    TDynamicVector<int> arr1(k), arr2(k), arr3(k);
+    arr1 = rand_vector(arr1, k);
+    arr2 = rand_vector(arr2, k);
+    time(&start);
+    arr3 = arr1 + arr2;
+    time(&end);
+    g = (g + (double)(end - start) / CLOCKS_PER_SEC) * 1000;
+    cout << "O(n^2) - " << g << endl;
+
+
+    g = 0;
+    TDynamicVector<int> arr11(k), arr22(k), arr33(k);
+    arr11 = rand_vector(arr1, k);
+    arr22 = rand_vector(arr2, k);
+    time(&start);
+    arr33 = arr11 * arr22;
+    time(&end);
+    g = (g + (double)(end - start) / CLOCKS_PER_SEC) * 1000;
+    cout << "O(n^3) - " << g << endl;
 }
 //---------------------------------------------------------------------------
